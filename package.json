@@ -28,6 +28,7 @@
     "bootstrap": "3.3.7",
     "express": "4.14.0",
     "flux": "3.0.0",
+    "ifx": "1.0.4",
     "immutable": "3.8.1",
     "keymirror": "0.1.1",
     "lodash": "4.16.4",

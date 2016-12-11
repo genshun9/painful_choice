@@ -1,6 +1,8 @@
+/// <reference path="../lib/lib.d.ts" />
 import React from 'react';
 import {Form, FormGroup, ControlLabel, Col, FormControl, Modal, ProgressBar, Table} from 'react-bootstrap';
 import * as _ from 'lodash';
+import If from 'ifx';
 import CardActionCreators from '../actions/CardActionCreators';
 import CardStore from '../stores/CardStore';
 
@@ -28,8 +30,7 @@ export default class App extends React.Component {
     if (!this.state.fillInitalCards) {
       return (
         <div id="main">
-          <Modal bsSize="large" animation={true} show={true} onHide={() => {
-          }}>
+          <Modal bsSize="large" animation={true} show={true} onHide={() => {}}>
             <Modal.Header>{'データの取得中です'}</Modal.Header>
             <Modal.Body>
               <ProgressBar striped bsStyle="success" now={40}/>
@@ -48,6 +49,16 @@ export default class App extends React.Component {
               </Col>
             </FormGroup>
           </Form>
+        </div>
+      );
+
+      const informationElm = If(this.state.inputText === '')(() =>
+        <div>
+          {`通常モンスターは ${CardStore.getAll().size} 体あります。`}
+        </div>
+      ).Else(() =>
+        <div>
+          {`決まり字 『${this.state.inputText}』 で始まる通常モンスターは ${CardStore.getAllFilterByInitText(this.state.inputText).size} 体あります。`}
         </div>
       );
 
@@ -81,6 +92,7 @@ export default class App extends React.Component {
       return (
         <div id="app">
           {inputElm}
+          {informationElm}
           {cardDataElm}
         </div>
       );
