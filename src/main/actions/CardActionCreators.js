@@ -1,6 +1,10 @@
 import AppDispatcher from '../dispatchers/AppDispatcher';
 import ActionConstants from '../constants/ActionConstants';
+import {PACK_NAME_2_GENERATION_ARR} from '../constants/Constants';
 import CardDto from './interfaces/ActionInterfaces';
+
+let result2GenerationDatas = [];
+let finish2GenerationFlag = 0;
 
 export default {
   /**
@@ -10,16 +14,22 @@ export default {
    * その後Store内でModelを生成しやすいように、CardDtoクラスとして変換する
    */
   initList() {
-    const req = new XMLHttpRequest();
-    req.open('get', 'datas/2_generation/magic_ruler.txt', true);
-    req.send(null);
+    PACK_NAME_2_GENERATION_ARR.map(p => {
+      const request = new XMLHttpRequest();
+      request.open('get', `datas/2_generation/${p}.txt`, true);
+      request.send(null);
 
-    req.onload = function() {
-      const convertDtoDatas = req.responseText.split('\n').map(r => new CardDto(r.split(','), 2, 'magic_ruler'));
-      AppDispatcher.dispatch({
-        actionType: ActionConstants.CARD_INIT_LIST,
-        data: convertDtoDatas
-      })
-    }
+      request.onload = function() {
+        const convertDtoDatas = request.responseText.split('\n').map(r => new CardDto(r.split(','), 2, p));
+        result2GenerationDatas = result2GenerationDatas.concat(convertDtoDatas);
+        finish2GenerationFlag++;
+        if (finish2GenerationFlag === PACK_NAME_2_GENERATION_ARR.length) {
+          AppDispatcher.dispatch({
+            actionType: ActionConstants.CARD_INIT_LIST,
+            data: result2GenerationDatas
+          })
+        }
+      };
+    });
   }
 };
