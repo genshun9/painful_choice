@@ -9,3 +9,28 @@
 .font-blue{
   color: blue;
 }
+
+.parent-form{
+  position: relative;
+  height: 100px;
+  width: 100%;
+}
+.inner-form{
+  width: 100%;
+  height: 50px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  position: absolute;
+  margin: auto;
+}
+
+.information-form{
+  padding-bottom: 20px;
+  padding-left: 100px;
+}
+
+.form-control{
+  width: 500px;
+}

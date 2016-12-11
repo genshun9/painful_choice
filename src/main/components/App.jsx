@@ -40,12 +40,13 @@ export default class App extends React.Component {
       )
     } else {
       const inputElm = (
-        <div>
-          <Form horizontal>
+        <div className="parent-form">
+          <Form horizontal className="inner-form">
             <FormGroup >
               <Col componentClass={ControlLabel} sm={2}>{'決まり字'}</Col>
               <Col sm={10}>
-                <FormControl type="text" placeholder="決まり字を入力してください" onChange={this.onChangeInputText.bind(this)}/>
+                <FormControl type="text" className="form-control" placeholder="決まり字を入力してください"
+                             onChange={this.onChangeInputText.bind(this)}/>
               </Col>
             </FormGroup>
           </Form>
@@ -53,11 +54,11 @@ export default class App extends React.Component {
       );
 
       const informationElm = If(this.state.inputText === '')(() =>
-        <div className="font-bold">
+        <div className="font-bold information-form">
           通常モンスター<span className="font-red">{` ${CardStore.getAll().size} `}</span>体あります。
         </div>
       ).Else(() =>
-        <div className="font-bold">
+        <div className="font-bold information-form">
           決まり字<span className="font-blue">{`『${this.state.inputText}』`}</span>で始まる通常モンスターは
           <span className="font-red">{` ${CardStore.getAllFilterByInitText(this.state.inputText).size} `}</span>体あります。
         </div>
