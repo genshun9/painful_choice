@@ -5,14 +5,14 @@ import ActionConstants from '../constants/ActionConstants';
 import Store from './Store';
 import Card from '../models/Card';
 
-let cards:I.OrderedMap<number, any> = null;
+let cards:I.OrderedMap<string, any> = null;
 
 /**
  * datasディレクトリ内のtxtファイルを読み込む
  * initialTextの文字が降順（あ行→わ行）になるようにソートする
  */
 function initStore(objects:Array<any>) {
-  cards = I.OrderedMap<number, Card>(objects.map<any>(
+  cards = I.OrderedMap<string, Card>(objects.map<any>(
     (object) => [object.id, Card.createFromAction(object)]
   ));
   cards = cards.sort((A, B) => A.initialText > B.initialText ? 1 : -1);

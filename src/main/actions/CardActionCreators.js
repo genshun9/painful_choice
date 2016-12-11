@@ -15,7 +15,7 @@ export default {
     req.send(null);
 
     req.onload = function() {
-      const convertDtoDatas = req.responseText.split('\n').map(r => new CardDto(r.split(',')));
+      const convertDtoDatas = req.responseText.split('\n').map(r => new CardDto(r.split(','), 2, 'magic_ruler'));
       AppDispatcher.dispatch({
         actionType: ActionConstants.CARD_INIT_LIST,
         data: convertDtoDatas

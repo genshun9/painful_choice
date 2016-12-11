@@ -45,6 +45,9 @@ export default class App extends React.Component {
                 <td ><input type="text" disabled={true} value={c.id}/></td>
                 <td ><input type="text" disabled={true} value={c.name}/></td>
                 <td ><input type="text" disabled={true} value={c.initialText}/></td>
+                <td ><input type="text" disabled={true} value={`${c.generation}期`}/></td>
+                <td ><input type="text" disabled={true} value={c.packName}/></td>
+
               </tr>
             ))}
           </div>
