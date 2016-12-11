@@ -1,5 +1,6 @@
 import React from 'react';
-import {Button, InputGroup, Modal, ProgressBar} from 'react-bootstrap';
+import {FormGroup, FormControl, Modal, ProgressBar, Table} from 'react-bootstrap';
+import * as _ from 'lodash';
 import CardActionCreators from '../actions/CardActionCreators';
 import CardStore from '../stores/CardStore';
 
@@ -7,8 +8,8 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      fillInitCards: false,
-      inputStr: ''
+      fillInitalCards: false,
+      inputText: ''
     };
 
     this._onChangeCard = this.onChangeCard.bind(this);
@@ -24,7 +25,7 @@ export default class App extends React.Component {
   }
 
   render() {
-    if (!this.state.fillInitCards) {
+    if (!this.state.fillInitalCards) {
       return (
         <div id="main">
           <Modal bsSize="large" animation={true} show={true} onHide={() => {
@@ -38,23 +39,39 @@ export default class App extends React.Component {
       )
     } else {
       const cardDataElm = (
-          <div>
-            <input type="text" onChange={this.onChangeInputStr.bind(this)}/>
-            {CardStore.getAllFilterByInitText(this.state.inputStr).map(c => (
+        <div>
+          <Table striped bordered condensed hover>
+            <thead>
+            <tr key="header">
+              <th>{'ID'}</th>
+              <th>{'名前'}</th>
+              <th>{'バニラフレーバー'}</th>
+              <th>{'期'}</th>
+              <th>{'パック名'}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {CardStore.getAllFilterByInitText(this.state.inputText).map(c => (
               <tr key={c.id}>
-                <td ><input type="text" disabled={true} value={c.id}/></td>
-                <td ><input type="text" disabled={true} value={c.name}/></td>
-                <td ><input type="text" disabled={true} value={c.initialText}/></td>
-                <td ><input type="text" disabled={true} value={`${c.generation}期`}/></td>
-                <td ><input type="text" disabled={true} value={c.packName}/></td>
-
+                <td >{c.id}</td>
+                <td >{c.name}</td>
+                <td >{c.initialText}</td>
+                <td >{`${c.generation}期`}</td>
+                <td >{c.packName}</td>
               </tr>
             ))}
-          </div>
-        );
+            </tbody>
+          </Table>
+        </div>
+      );
 
       return (
         <div id="app">
+          <form>
+            <FormGroup bsSize="large">
+              <FormControl type="text" placeholder="決まり字を入力してください" onChange={this.onChangeInputText.bind(this)}/>
+            </FormGroup>
+          </form>
           {cardDataElm}
         </div>
       );
@@ -62,10 +79,10 @@ export default class App extends React.Component {
   }
 
   onChangeCard() {
-    this.setState({fillInitCards: true});
+    this.setState({fillInitalCards: true});
   }
 
-  onChangeInputStr(e) {
-    this.setState({inputStr: e.target.value});
+  onChangeInputText(e) {
+    this.setState({inputText: e.target.value});
   }
 }

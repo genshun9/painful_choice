@@ -14,7 +14,8 @@ export default {
    * その後Store内でModelを生成しやすいように、CardDtoクラスとして変換する
    */
   initList() {
-    PACK_NAME_2_GENERATION_ARR.map(p => {
+    //TODO: Using Maps as children のエラーが発生している
+    PACK_NAME_2_GENERATION_ARR.forEach(p => {
       const request = new XMLHttpRequest();
       request.open('get', `datas/2_generation/${p}.txt`, true);
       request.send(null);
