@@ -53,12 +53,13 @@ export default class App extends React.Component {
       );
 
       const informationElm = If(this.state.inputText === '')(() =>
-        <div>
-          {`通常モンスターは ${CardStore.getAll().size} 体あります。`}
+        <div className="font-bold">
+          通常モンスター<span className="font-red">{` ${CardStore.getAll().size} `}</span>体あります。
         </div>
       ).Else(() =>
-        <div>
-          {`決まり字 『${this.state.inputText}』 で始まる通常モンスターは ${CardStore.getAllFilterByInitText(this.state.inputText).size} 体あります。`}
+        <div className="font-bold">
+          決まり字<span className="font-blue">{`『${this.state.inputText}』`}</span>で始まる通常モンスターは
+          <span className="font-red">{` ${CardStore.getAllFilterByInitText(this.state.inputText).size} `}</span>体あります。
         </div>
       );
 
