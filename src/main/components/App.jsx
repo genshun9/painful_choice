@@ -1,5 +1,5 @@
 import React from 'react';
-import {FormGroup, FormControl, Modal, ProgressBar, Table} from 'react-bootstrap';
+import {Form, FormGroup, ControlLabel, Col, FormControl, Modal, ProgressBar, Table} from 'react-bootstrap';
 import * as _ from 'lodash';
 import CardActionCreators from '../actions/CardActionCreators';
 import CardStore from '../stores/CardStore';
@@ -38,6 +38,19 @@ export default class App extends React.Component {
         </div>
       )
     } else {
+      const inputElm = (
+        <div>
+          <Form horizontal>
+            <FormGroup >
+              <Col componentClass={ControlLabel} sm={2}>{'決まり字'}</Col>
+              <Col sm={10}>
+                <FormControl type="text" placeholder="決まり字を入力してください" onChange={this.onChangeInputText.bind(this)}/>
+              </Col>
+            </FormGroup>
+          </Form>
+        </div>
+      );
+
       const cardDataElm = (
         <div>
           <Table striped bordered condensed hover>
@@ -67,11 +80,7 @@ export default class App extends React.Component {
 
       return (
         <div id="app">
-          <form>
-            <FormGroup bsSize="large">
-              <FormControl type="text" placeholder="決まり字を入力してください" onChange={this.onChangeInputText.bind(this)}/>
-            </FormGroup>
-          </form>
+          {inputElm}
           {cardDataElm}
         </div>
       );
